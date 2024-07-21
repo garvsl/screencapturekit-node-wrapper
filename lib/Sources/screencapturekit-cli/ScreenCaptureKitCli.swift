@@ -122,11 +122,12 @@ extension ScreenCaptureKitCLI.List {
     struct Screens: AsyncParsableCommand {
         mutating func run() async throws {
             let sharableContent = try await SCShareableContent.current
-            print(sharableContent.displays.count, sharableContent.windows.count, sharableContent.applications.count)
+            
             let appNames = sharableContent.applications.map {
                 app in
                 ["name": app.applicationName, "process_id": app.processID, "bundle_identifier": app.bundleIdentifier]
             }
+            
             try print(toJson(appNames), to: .standardError)
         }
     }
