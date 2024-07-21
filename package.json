@@ -1,6 +1,6 @@
 {
   "name": "screencapturekit-node-wrapper",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "directories": {
     "lib": "lib",
     "screencapturekit": "screencapturekit"
@@ -8,8 +8,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
-    "dist",
-    "screencapturekit"
+    "dist"
   ],
   "scripts": {
     "build": "tsc",
