@@ -17,7 +17,8 @@ class ScreenCaptureKit {
         "list",
         "screens",
       ]);
-      return JSON.parse(stdout);
+
+      return stdout.trim().split(" ");
     } catch (error) {
       console.error("Error in listScreens:", error);
       throw error;
