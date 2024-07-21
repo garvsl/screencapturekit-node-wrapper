@@ -23,6 +23,17 @@ async function test() {
   } catch (error) {
     console.error("Test failed:", error);
   }
+
+  try {
+    console.log("Testing audo...");
+    await sck.startAudioRecording();
+    // t.true(fs.existsSync(await recorder.isFileReady));
+    await delay(4000);
+    const videoPath = await sck.stopRecording();
+    console.log({ videoPath });
+  } catch (error) {
+    console.error("Test failed:", error);
+  }
 }
 
 function delay(ms: number): Promise<void> {

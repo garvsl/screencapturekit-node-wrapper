@@ -109,6 +109,53 @@ class ScreenCaptureKit {
     }
   }
 
+  async startAudioRecording({
+    audioDeviceId,
+  }: {
+    audioDeviceId?: number;
+  } = {}) {
+    this.processId = getRandomId();
+    return new Promise((resolve, reject) => {
+      if (this.recorder !== undefined) {
+        reject(new Error("Call `.stopRecording()` first"));
+        return;
+      }
+
+      this.videoPath = tempy.file({ extension: "m4a" });
+      const recorderOptions = {
+        destination: fileUrl(this.videoPath),
+        framesPerSecond: 30,
+        showCursor: false,
+        highlightClicks: false,
+        screenId: 0,
+        audioDeviceId,
+      };
+
+      const timeout = setTimeout(resolve, 1000);
+      this.recorder = execa(this.executablePath, [
+        "record",
+        JSON.stringify(recorderOptions),
+      ]);
+
+      this.recorder.catch((error) => {
+        console.error("Recorder error:", error);
+        clearTimeout(timeout);
+        delete this.recorder;
+        reject(error);
+      });
+
+      this.recorder?.stdout?.setEncoding("utf8");
+      this.recorder?.stdout?.on("data", (data) => {
+        console.log("From swift executable: ", data);
+      });
+
+      this.recorder?.stderr?.setEncoding("utf8");
+      this.recorder?.stderr?.on("data", (data) => {
+        console.error("Stderr from swift executable:", data);
+      });
+    });
+  }
+
   async startRecording({
     fps = 30,
     cropArea = undefined,
