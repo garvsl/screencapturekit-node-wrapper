@@ -9,5 +9,3 @@ DerivedData/
 .netrc
 recording*
 node_modules
-screencapturekit
-dist
