@@ -1,19 +1,45 @@
 {
   "name": "screencapturekit-node-wrapper",
   "version": "1.0.0",
-  "main": "index.js",
   "directories": {
-    "lib": "lib"
+    "lib": "lib",
+    "screencapturekit": "screencapturekit"
   },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "screencapturekit"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts",
+    "prepublishOnly": "npm run build"
   },
-  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/garvsl/screencapturekit-node-wrapper.git"
+  },
+  "os": [
+    "darwin"
+  ],
+  "cpu": [
+    "x64",
+    "arm64"
+  ],
+  "keywords": [
+    "screencapture",
+    "macos",
+    "recording"
+  ],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@types/file-url": "^3.0.2",
     "@types/node": "^20.14.11",
+    "@types/tempy": "^0.3.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.3"
   },
