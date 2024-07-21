@@ -13,12 +13,12 @@ class ScreenCaptureKit {
 
   async listScreens() {
     try {
-      const { stdout } = await execFileAsync(this.executablePath, [
+      const { stderr } = await execFileAsync(this.executablePath, [
         "list",
         "screens",
       ]);
 
-      return stdout.trim().split(" ");
+      return JSON.parse(stderr);
     } catch (error) {
       console.error("Error in listScreens:", error);
       throw error;
