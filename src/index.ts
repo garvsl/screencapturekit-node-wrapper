@@ -112,8 +112,10 @@ class ScreenCaptureKit {
 
   async startAudioRecording({
     audioDeviceId,
+    destination,
   }: {
     audioDeviceId?: number;
+    destination?: string;
   } = {}) {
     this.processId = getRandomId();
     return new Promise((resolve, reject) => {
@@ -124,7 +126,7 @@ class ScreenCaptureKit {
 
       this.videoPath = tempy.file({ extension: "m4a" });
       const recorderOptions = {
-        destination: fileUrl(this.videoPath),
+        destination: destination || fileUrl(this.videoPath),
         framesPerSecond: 30,
         showCursor: false,
         highlightClicks: false,
