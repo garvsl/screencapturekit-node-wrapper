@@ -61,6 +61,7 @@ type RecordingOptions = {
   cropArea?: CropArea;
   showCursor: boolean;
   highlightClicks: boolean;
+  destination?: string;
   screenId: number;
   audioDeviceId?: number;
   videoCodec: string;
@@ -162,6 +163,7 @@ class ScreenCaptureKit {
     showCursor = true,
     highlightClicks = false,
     screenId = 0,
+    destination = undefined,
     audioDeviceId = undefined,
     videoCodec = "h264",
   }: Partial<RecordingOptions> = {}) {
@@ -174,7 +176,7 @@ class ScreenCaptureKit {
 
       this.videoPath = tempy.file({ extension: "mp4" });
       const recorderOptions: RecordingOptionsForScreenCaptureKit = {
-        destination: fileUrl(this.videoPath),
+        destination: destination || fileUrl(this.videoPath),
         framesPerSecond: fps,
         showCursor,
         highlightClicks,
