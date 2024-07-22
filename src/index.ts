@@ -63,7 +63,7 @@ type RecordingOptions = {
   highlightClicks: boolean;
   destination?: string;
   screenId: number;
-  audioDeviceId?: number;
+  audioDeviceId?: string;
   videoCodec: string;
 };
 
@@ -73,7 +73,7 @@ type RecordingOptionsForScreenCaptureKit = {
   showCursor: boolean;
   highlightClicks: boolean;
   screenId: number;
-  audioDeviceId?: number;
+  audioDeviceId?: string;
   videoCodec?: string;
   cropRect?: [[x: number, y: number], [width: number, height: number]];
 };
@@ -112,9 +112,9 @@ class ScreenCaptureKit {
 
   async startAudioRecording({
     audioDeviceId,
-    destination,
+    destination = undefined,
   }: {
-    audioDeviceId?: number;
+    audioDeviceId?: string;
     destination?: string;
   } = {}) {
     this.processId = getRandomId();
@@ -124,9 +124,13 @@ class ScreenCaptureKit {
         return;
       }
 
-      this.videoPath = tempy.file({ extension: "m4a" });
+      if (destination) {
+        this.videoPath = destination;
+      } else {
+        this.videoPath = tempy.file({ extension: "m4a" });
+      }
       const recorderOptions = {
-        destination: destination || fileUrl(this.videoPath),
+        destination: fileUrl(this.videoPath),
         framesPerSecond: 30,
         showCursor: false,
         highlightClicks: false,
@@ -176,9 +180,14 @@ class ScreenCaptureKit {
         return;
       }
 
-      this.videoPath = tempy.file({ extension: "mp4" });
+      if (destination) {
+        this.videoPath = destination;
+      } else {
+        this.videoPath = tempy.file({ extension: "mp4" });
+      }
+
       const recorderOptions: RecordingOptionsForScreenCaptureKit = {
-        destination: destination || fileUrl(this.videoPath),
+        destination: fileUrl(this.videoPath),
         framesPerSecond: fps,
         showCursor,
         highlightClicks,
