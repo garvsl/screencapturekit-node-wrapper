@@ -1,7 +1,16 @@
-Added some ease of use capabilities and made into package for simple integration.
-No Audio recording
+Creds to og.
+
+I added some ease of use capabilities/fixed soem bugs, and made into a npm package for simple integration.
+No Audio recording. Just use mediaRecorder api for that--can only record microphone, but can technically capture speakers if u dont wear headset. Or simpyl use virtual device for system audio.
+
+
+
 
 Example:
+
+```
+npm install screencapturekit-node-wrapper
+```
 
 ```
 
